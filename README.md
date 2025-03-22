@@ -18,7 +18,15 @@ ViteVue AIchat是一个基于Vue 3和Vite构建的现代化AI聊天应用。它�
 - Element Plus - 基于Vue 3的组件库
 - Marked - Markdown解析器
 - Highlight.js - 代码语法高亮
-- Axios - HTTP客户端
+
+## 环境变量配置
+项目使用.env文件配置环境变量，支持以下配置项：
+
+```env
+VITE_OPENAI_API_KEY=你的API密钥
+VITE_OPENAI_API_ENDPOINT=API接口地址
+VITE_DEFAULT_MODEL=默认使用的模型名称
+```
 
 ## 快速开始
 
@@ -40,7 +48,10 @@ npm install
 yarn install
 ```
 
-3. 启动开发服务器：
+3. 配置环境变量：
+- 修改`.env`文件中的配置项
+
+4. 启动开发服务器：
 ```bash
 npm run dev
 # 或
@@ -58,7 +69,7 @@ yarn dev
    - 选择模型：选择要使用的AI模型
 3. 点击保存
 
-## 使用说明
+### 基本操作
 1. 发送消息
    - 在底部输入框输入消息
    - 按回车键或点击发送按钮
@@ -77,11 +88,6 @@ yarn dev
 - 构建项目：`npm run build`
 - 预览构建：`npm run preview`
 
-## 注意事项
-- API密钥请妥善保管，不要泄露给他人
-- 建议使用现代浏览器访问以获得最佳体验
-- 如遇到问题，请检查API配置是否正确
-
 ## Vercel部署教程
 
 ### 准备工作
@@ -89,17 +95,11 @@ yarn dev
    - 访问 [Vercel官网](https://vercel.com)
    - 使用GitHub账号或邮箱注册
 
-2. 安装Vercel CLI（可选）
-```bash
-npm install -g vercel
-```
-
 ### 部署步骤
 1. 导入项目
    - 登录Vercel控制台
    - 点击「New Project」
    - 选择并导入GitHub仓库
-   - 选择要部署的分支（通常是main或master）
 
 2. 配置项目
    - 构建命令：`npm run build`
@@ -108,14 +108,14 @@ npm install -g vercel
 
 3. 环境变量设置
    - 在项目设置中找到「Environment Variables」
-   - 添加必要的环境变量（如API密钥等）
+   - 添加必要的环境变量（API密钥等）
 
 4. 部署项目
    - 点击「Deploy」开始部署
    - 等待构建和部署完成
    - 访问分配的域名查看部署结果
 
-### 自定义域名
+### 自定义域名（可选）
 1. 添加域名
    - 在项目设置中选择「Domains」
    - 输入要绑定的域名
@@ -124,24 +124,13 @@ npm install -g vercel
 2. SSL/HTTPS配置
    - Vercel自动提供SSL证书
    - 确保DNS记录正确配置
-
 ### 自动部署
 - 当推送代码到GitHub仓库时，Vercel会自动触发新的部署
 - 可以在「Git」设置中配置自动部署的分支和行为
-
-### 常见问题
-1. 构建失败
-   - 检查依赖是否完整
-   - 确认Node.js版本兼容性
-   - 查看构建日志定位错误
-
-2. 环境变量问题
-   - 确保所有必要的环境变量都已配置
-   - 检查环境变量名称是否正确
-
-3. 域名配置问题
-   - 等待DNS记录生效（通常需要几分钟到几小时）
-   - 确认DNS记录配置正确
+## 注意事项
+- API密钥请妥善保管，不要泄露给他人
+- 建议使用现代浏览器访问以获得最佳体验
+- 如遇到问题，请检查API配置是否正确
 
 ## 许可证
 本项目基于MIT许可证开源
