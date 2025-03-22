@@ -17,11 +17,6 @@ const selectedModel = ref('')
 const defaultApiKey = import.meta.env.VITE_OPENAI_API_KEY
 const defaultApiEndpoint = import.meta.env.VITE_OPENAI_API_ENDPOINT
 const defaultModel = import.meta.env.VITE_DEFAULT_MODEL
-const availableModels = ref([
-  { value: 'Qwen/Qwen2.5-Coder-7B-Instruct', label: 'Qwen/Qwen2.5-Coder-7B-Instruct' },
-  { value: 'gpt-4', label: 'GPT-4' },
-  { value: 'gpt-4-32k', label: 'GPT-4 32K' }
-])
 
 onMounted(() => {
   // 优先使用本地存储的配置，如果没有则使用环境变量默认值
@@ -256,12 +251,6 @@ const sendMessage = async () => {
         </el-form-item>
         <el-form-item label="模型名称">
           <el-select v-model="selectedModel" placeholder="选择模型">
-            <el-option
-              v-for="model in availableModels"
-              :key="model.value"
-              :label="model.label"
-              :value="model.value"
-            />
           </el-select>
         </el-form-item>
       </el-form>
