@@ -8,10 +8,15 @@ import { CopyDocument, RefreshRight } from '@element-plus/icons-vue'
 
 const messages = ref([])
 const inputMessage = ref('')
-const apiKey = ref(import.meta.env.VITE_OPENAI_API_KEY || '')
-const apiEndpoint = ref(import.meta.env.VITE_OPENAI_API_ENDPOINT || '')
+const apiKey = ref('')
+const apiEndpoint = ref('')
 const showSettings = ref(false)
 const selectedModel = ref('')
+
+// 从环境变量获取默认配置
+const defaultApiKey = import.meta.env.VITE_OPENAI_API_KEY
+const defaultApiEndpoint = import.meta.env.VITE_OPENAI_API_ENDPOINT
+const defaultModel = import.meta.env.VITE_DEFAULT_MODEL
 const availableModels = ref([
   { value: 'Qwen/Qwen2.5-Coder-7B-Instruct', label: 'Qwen/Qwen2.5-Coder-7B-Instruct' },
   { value: 'gpt-4', label: 'GPT-4' },
@@ -19,12 +24,10 @@ const availableModels = ref([
 ])
 
 onMounted(() => {
-  const savedApiKey = localStorage.getItem('apiKey')
-  const savedApiEndpoint = localStorage.getItem('apiEndpoint')
-  const savedModel = localStorage.getItem('selectedModel')
-  if (savedApiKey) apiKey.value = savedApiKey
-  if (savedApiEndpoint) apiEndpoint.value = savedApiEndpoint
-  if (savedModel) selectedModel.value = savedModel
+  // 优先使用本地存储的配置，如果没有则使用环境变量默认值
+  apiKey.value = localStorage.getItem('apiKey') || defaultApiKey || ''
+  apiEndpoint.value = localStorage.getItem('apiEndpoint') || defaultApiEndpoint || ''
+  selectedModel.value = localStorage.getItem('selectedModel') || defaultModel || ''
 
   marked.setOptions({
     highlight: function(code, lang) {
@@ -246,13 +249,20 @@ const sendMessage = async () => {
     <el-dialog v-model="showSettings" title="API设置" width="400px">
       <el-form label-position="top">
         <el-form-item label="API密钥">
-          <el-input v-model="apiKey" placeholder="输入API密钥" show-password />
+          <el-input v-model="apiKey" placeholder="使用默认API密钥或输入新的密钥" show-password />
         </el-form-item>
         <el-form-item label="API地址">
-          <el-input v-model="apiEndpoint" placeholder="输入API地址" />
+          <el-input v-model="apiEndpoint" placeholder="使用默认API地址或输入新的地址" />
         </el-form-item>
         <el-form-item label="模型名称">
-          <el-input v-model="selectedModel" placeholder="输入模型名称" />
+          <el-select v-model="selectedModel" placeholder="选择模型">
+            <el-option
+              v-for="model in availableModels"
+              :key="model.value"
+              :label="model.label"
+              :value="model.value"
+            />
+          </el-select>
         </el-form-item>
       </el-form>
       <template #footer>
