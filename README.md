@@ -1,0 +1,2 @@
+# ViteVue_AIchat
+完全使用AI开发的使用Vite+Vue开发框架和模板开发的一个兼容openai接口的大模型在线对话网站,带上下文对话,支持markdown渲染以及打印机一样的流式输出
