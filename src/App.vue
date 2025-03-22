@@ -8,10 +8,10 @@ import { CopyDocument, RefreshRight } from '@element-plus/icons-vue'
 
 const messages = ref([])
 const inputMessage = ref('')
-const apiKey = ref('')
-const apiEndpoint = ref('')
+const apiKey = ref(import.meta.env.VITE_OPENAI_API_KEY || '')
+const apiEndpoint = ref(import.meta.env.VITE_OPENAI_API_ENDPOINT || '')
 const showSettings = ref(false)
-const selectedModel = ref('gpt-3.5-turbo')
+const selectedModel = ref('')
 const availableModels = ref([
   { value: 'Qwen/Qwen2.5-Coder-7B-Instruct', label: 'Qwen/Qwen2.5-Coder-7B-Instruct' },
   { value: 'gpt-4', label: 'GPT-4' },
@@ -251,15 +251,8 @@ const sendMessage = async () => {
         <el-form-item label="API地址">
           <el-input v-model="apiEndpoint" placeholder="输入API地址" />
         </el-form-item>
-        <el-form-item label="选择模型">
-          <el-select v-model="selectedModel" placeholder="请选择模型">
-            <el-option
-              v-for="model in availableModels"
-              :key="model.value"
-              :label="model.label"
-              :value="model.value"
-            />
-          </el-select>
+        <el-form-item label="模型名称">
+          <el-input v-model="selectedModel" placeholder="输入模型名称" />
         </el-form-item>
       </el-form>
       <template #footer>
